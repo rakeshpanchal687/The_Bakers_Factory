@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | The Bakers Factory{% endblock %}
+
+{% block content %}
+
+<section class="checkout-section">
+
+    <h1>COMPLETE YOUR ORDER</h1>
+
+    <div class="checkout-container">
+
+        <div class="checkout-form">
+
+            <h2>Customer Details</h2>
+
+            {% if error %}
+            <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <label>Full Name</label>
+                <input type="text"
+                       name="customer_name"
+                       placeholder="Enter your full name"
+                       required>
+
+                <label>Mobile Number</label>
+                <input type="tel"
+                       name="phone"
+                       placeholder="Enter 10 digit mobile number"
+                       pattern="[0-9]{10}"
+                       maxlength="10"
+                       required>
+
+                <label>Delivery Address</label>
+                <textarea name="address"
+                          rows="4"
+                          placeholder="Enter your complete address"
+                          required></textarea>
+
+                <h3>Payment Method</h3>
+
+                <p class="payment-option">
+                    <input type="radio" checked disabled>
+                    Cash on Delivery (COD)
+                </p>
+
+                <button type="submit" class="gold-btn">
+                    Place Order
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="order-summary">
+
+            <h2>Order Summary</h2>
+
+            {% for item in cart_items %}
+
+            <div class="summary-item">
+                <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                <span>₹{{ item.line_total }}</span>
+            </div>
+
+            {% endfor %}
+
+            <hr>
+
+            <h3>Total: ₹{{ total }}</h3>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

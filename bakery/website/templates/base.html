@@ -1,0 +1,45 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}The Bakers Factory{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <a href="{% url 'welcome' %}">
+            <img src="{% static 'images/logo.png' %}" alt="The Bakers Factory">
+        </a>
+        <h2>THE BAKERS FACTORY</h2>
+    </div>
+
+    <nav>
+        <a href="{% url 'welcome' %}">Home</a>
+        <a href="{% url 'welcome' %}#about">About</a>
+        <a href="{% url 'welcome' %}#menu">Menu</a>
+        <a href="{% url 'welcome' %}#contact">Contact</a>
+        <a href="{% url 'cart' %}">Cart 🛒</a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="footer">
+    <h3>THE BAKERS FACTORY</h3>
+    <p>Freshly Baked. Made with Love.</p>
+    <p>Contact: +91 8085362764</p>
+    <p>© 2026 The Bakers Factory. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

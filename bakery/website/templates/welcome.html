@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | The Bakers Factory{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+        <p>WELCOME TO THE BAKERS FACTORY</p>
+        <h1>Freshly Baked.<br>Made with Love.</h1>
+        <p>Delicious Cakes, Snacks, Pizza, Coffee & More.</p>
+        <a href="#menu" class="gold-btn">Explore Our Menu</a>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <h2>ABOUT US</h2>
+    <p>
+        Welcome to The Bakers Factory!
+        Enjoy delicious vegetarian cakes, snacks,
+        beverages and freshly prepared food.
+        Every bite is made with love.
+    </p>
+</section>
+
+<section class="menu-section" id="menu">
+    <h2>EXPLORE OUR MENU</h2>
+    <p class="section-subtitle">Choose your favourite food category</p>
+
+    <div class="category-grid">
+        {% for category in categories %}
+        <a href="{% url 'category' category.slug %}" class="category-card">
+            <img src="{{ category.image_url }}" alt="{{ category.name }}">
+            <div class="category-info">
+                <h3>{{ category.name }}</h3>
+                <span>Explore Items →</span>
+            </div>
+        </a>
+        {% empty %}
+        <p>No categories available.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="featured-section">
+    <h2>OUR SPECIAL ITEMS</h2>
+
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>₹{{ product.price }}</p>
+
+            <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="gold-btn">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <h2>CONTACT US</h2>
+    <p>Have a question? Get in touch with us.</p>
+    <p>Phone: +91 8085362764</p>
+</section>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} | The Bakers Factory{% endblock %}
+
+{% block content %}
+
+<section class="category-header">
+    <h1>{{ category.name }}</h1>
+    <p>Explore our delicious {{ category.name }} collection</p>
+    <a href="{% url 'welcome' %}" class="gold-btn">Back to Home</a>
+</section>
+
+<section class="category-products">
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+
+            <h3>{{ product.name }}</h3>
+
+            <p>{{ product.description }}</p>
+
+            <h3 class="price">₹{{ product.price }}</h3>
+
+            <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="gold-btn">
+                    Add to Cart 🛒
+                </button>
+            </form>
+
+        </div>
+
+        {% empty %}
+
+        <p>Products coming soon!</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
